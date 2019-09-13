@@ -3,7 +3,7 @@ A generator for malicious DLL files for DLL Hijacking attacks
 
 **Usage**
 
-Usage is pretty simple just run the command with Python3 
+Usage is pretty simple just run the scripy with Python3 or " .\DLLicous.py " 
 
 and the script will prompt you for everything you ned
 
