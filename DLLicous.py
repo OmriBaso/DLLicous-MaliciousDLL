@@ -25,7 +25,7 @@ def creds():
     print(colored("Malicious DLL generator for DLL hijacking", 'blue'))
     print(colored("---------------------\n", 'green'))
     print(colored("Author: J3wker", 'red'))
-    print(colored("HTB Profile: https://www.hackthebox.eu/home/users/profile/165824", 'green'))
+    print(colored("HTB Profile: https://www.hackthebox.eu/profile/165824", 'green'))
     print(colored("GitHub: https://github.com/J3wker/PToolity\n\n", 'green'))
 
 
