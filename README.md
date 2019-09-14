@@ -7,7 +7,7 @@ Usage is pretty simple just run the scripy with Python3 or " .\DLLicous.py "
 
 and the script will prompt you for everything you need
 
-**DLL Hijacking***
+**DLL Hijacking**
 
 DLL hijacking the process of taking adventage of the way windows load 
 
