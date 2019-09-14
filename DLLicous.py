@@ -63,8 +63,8 @@ def create_ready(ready, name):
         with open("/etc/DLLicous/"+name, 'w') as last:
             last.write(ready)
     except FileNotFoundError:     # If folder doesn't exist it creates it
-        os.system("mkdir /etc/DLLicous")
-        os.system("mkdir /etc/DLLicous/output/")
+        os.mkdir("/etc/DLLicous")
+        os.mkdir("/etc/DLLicous/output/")
 
 
 def generate():
