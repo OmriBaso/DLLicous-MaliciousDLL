@@ -18,7 +18,7 @@ and I had two options to solve that:
 2. Base64encode and Decode the NC binary inside the DLL and write the ` nc.exe ` 
 Inside the working directory of the DLL and launch the attack from there.
 Another new feature in mind is:
-having the base64 code of ` nc ` also inside the DLL instead of downloading 
+having the base64 code of ` nc.exe ` also inside the DLL instead of downloading 
 it from the web or copying it from the SMB server.
 
 V2 will probably be released in the next month
