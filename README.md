@@ -1,7 +1,7 @@
 # DLLicous
 **_____________________________________________________________________________________________**
 
-A generator for malicious DLL files for DLL Hijacking attacks.
+**A generator for malicious DLL files. Fast-Easy-Simple.**
 
 **Usage**
 
