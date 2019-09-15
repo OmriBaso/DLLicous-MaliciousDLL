@@ -26,4 +26,5 @@ V2 will probably be released in the next month
 **Credits**
 
 Code was written by "J3wker" Aka Omri Baso.
-Credits for the SMB Server used in the program goes to "SecureAuthCorp" !
+Credits for the SMB Server used in the program goes to "SecureAuthCorp" 
+
