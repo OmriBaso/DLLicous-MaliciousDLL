@@ -14,7 +14,8 @@ What's new in V2 Version ? (Not Released yet)
 As i said - V2 is for PT so I made scenario where the organization has a firewall that blocks downloading executables.
 Two options to solve that:
 1. Write a reverse shell in C to the DLL
-2. Base64encode and Decode the NC binary inside the DLL and write the ` nc.exe ` inside the working directory of the DLL and launch the attack from there
+2. Base64encode and Decode the NC binary inside the DLL and write the ` nc.exe ` 
+inside the working directory of the DLL and launch the attack from there
 Another new feature in mind is:
 having the base64 code of nc also on the attacker machine instead of downloading 
 it when using against the attacker with the SMB delivery option.
