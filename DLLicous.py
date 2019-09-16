@@ -76,7 +76,7 @@ def generate():
     ver = input(colored("[+] Target OS - > ", "red"))
     if "1" in choice:            # Custom Commmands Option
         get_payload = read_payload()
-        print(colored("make sure to use Double Backslashs !!!", "red"))
+        print(colored("make sure you use Double Backslashs !!!", "red"))
         print("\nExample: C:\\\\Windows\\\\System32\n")
         evil = input("Enter Evil Command - > ")
         payload = re.sub('".+"', '"' + evil + '"', get_payload)    # Using Regex to change the base Source Code
